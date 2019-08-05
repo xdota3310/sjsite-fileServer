@@ -36,14 +36,15 @@ public class LogAspect {
     public void doBefore(JoinPoint joinPoint){
         sa = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         request = sa == null ? null : sa.getRequest();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-DD HH-mm-ss");
-        String now = simpleDateFormat.format(System.currentTimeMillis());
-        LOGGER.warn("Request:"+"[URI:"+request.getRequestURI()+"Time:"+now+"]");
+        if(request != null){
+            LOGGER.warn("Request:"+"[URI:"+request.getRequestURI()+"，IP:"+request.getRemoteAddr()+"]");
+        }else {
+            LOGGER.error("request信息为空！");
+        }
     }
 
 
     @AfterReturning(returning = "res",pointcut = "log()")
     public void doAfter(Object res){
-        LOGGER.warn("After:"+request.getRemoteAddr());
     }
 }
