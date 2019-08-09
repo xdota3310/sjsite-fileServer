@@ -32,19 +32,39 @@ public class LogAspect {
     @Pointcut("execution(public * com.lr.fileserver.web.controller..*.*(..))")
     public void log(){}
 
-    @Before("log()")
-    public void doBefore(JoinPoint joinPoint){
-        sa = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        request = sa == null ? null : sa.getRequest();
-        if(request != null){
-            LOGGER.warn("Request:"+"[URI:"+request.getRequestURI()+"，IP:"+request.getRemoteAddr()+"]");
-        }else {
-            LOGGER.error("request信息为空！");
-        }
+//    @Before("log()")
+//    public void doBefore(JoinPoint joinPoint){
+//        sa = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+//        request = sa == null ? null : sa.getRequest();
+//        if(request != null){
+//            LOGGER.warn("Request:"+"[URI:"+request.getRequestURI()+"，IP:"+request.getRemoteAddr()+"]");
+//        }else {
+//            LOGGER.error("request信息为空！");
+//        }
+//    }
+//
+//
+//    @AfterReturning(returning = "res",pointcut = "log()")
+//    public Object doAfter(Object res){
+//        res = null;
+//        return  res;
+//    }
+//
+    @After("log()")
+    public Object doAfter(JoinPoint joinPoint){
+        joinPoint.getArgs();
+        joinPoint.getSignature();
+        return  null;
     }
 
 
-    @AfterReturning(returning = "res",pointcut = "log()")
-    public void doAfter(Object res){
-    }
+//    @Around("log()")
+//    public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+//        Object[] args = proceedingJoinPoint.getArgs();
+//        ResultResponse obj = (ResultResponse)proceedingJoinPoint.proceed();
+//        Object Signa = proceedingJoinPoint.getSignature();
+//
+//        return ResultResponse.createByError("-2","123");
+//    }
+
 }
