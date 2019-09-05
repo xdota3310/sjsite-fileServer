@@ -2,6 +2,7 @@ package com.lr.fileserver.web.controller;
 
 import com.lr.common.base.ResultResponse;
 import com.lr.common.model.BlockedQ;
+import com.lr.fileserver.web.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,8 +34,8 @@ public class TestController {
     @RequestMapping(value="/log",method=RequestMethod.GET)
     @ResponseBody
 //    @RequestLog(level = "error")
-    public ResultResponse log(){
-        return ResultResponse.createBySuccess();
+    public Result log(){
+        return Result.createBySuccess();
     }
 
 }
